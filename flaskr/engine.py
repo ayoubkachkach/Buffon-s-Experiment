@@ -3,7 +3,7 @@ import math
 
 MATCH_LEN = 6 #in pixels
 LINE_SPACING = 2*MATCH_LEN #spacing between consecutive lines
-DIM_SPACE = 640
+DIM_SPACE = 240
 
 class Point:
     '''Represents a 2D point'''
@@ -50,13 +50,16 @@ class Experiment:
         self.num_matches = num_matches
         self.matches = []
         self.touching_matches = 0 #no matches touching line initially
-
+    
         self.throw_matches(num_matches)
 
     def throw_matches(self, num_matches):
         centers = np.random.uniform(0, DIM_SPACE - MATCH_LEN/2, num_matches)
         angles = np.random.uniform(0, math.pi, num_matches)
         self.matches = [Match(center, angle) for center, angle in zip(centers, angles)]
-        touching_matches = sum(1 for match in matches if match.touches)
+        self.touching_matches = sum(1 for match in matches if match.touches)
     
+
+if(__name__ == "__main__"):
+    exp = Experiment(100)
 
